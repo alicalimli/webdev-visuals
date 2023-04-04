@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
 
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */

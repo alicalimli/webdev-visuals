@@ -1,10 +1,15 @@
+import { Navbar } from "@/components";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
-      <body className="bg-black ">
+      <Head>
+        <title>WebDevVisuals</title>
+        <meta name="description" content="Visuals for web development" />
+      </Head>
+      <body className="bg-[#222] text-white ">
+        <Navbar />
         <Main />
         <NextScript />
       </body>

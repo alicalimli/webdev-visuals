@@ -17,7 +17,7 @@ const MasonryGrid = ({ visuals }: MasonryGridProps) => {
       columnClassName="my-masonry-grid_column"
     >
       {visuals.map(({ imageURL }, index) => (
-        <div key={index} className="my-masonry-grid_item group relative">
+        <div key={index} className="my-masonry-grid_item group relative overflow-hidden rounded-md">
           <img src={imageURL} alt={`Image ${index}`} />
           <div className="absolute inset-0 duration-200 bg-black/20 flex justify-center gap-4 p-4 items-end opacity-0 group-hover:opacity-100">
             <button className="p-2 px-4 bg-blue-600 rounded-md w-full max-w-sm">learn more</button>
