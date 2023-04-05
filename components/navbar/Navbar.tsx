@@ -19,7 +19,8 @@ const Navbar = ({}: NavbarProps) => {
   
   return (
     <nav className='w-full items-center p-8 flex gap-2 px-vw-32 '>
-      <Link href="/" className='text-4xl font-bold'>WebDevVisuals</Link>
+      <Link href="/" className='fluid-2xl font-bold hidden sm:block'>WebDevVisuals</Link>
+      <Link href="/" className='fluid-2xl font-bold sm:hidden'>WDV</Link>
       <ul className='ml-auto flex gap-4 text-xl'>
         {renderLinks}
       </ul>
