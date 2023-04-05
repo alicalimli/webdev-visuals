@@ -6,6 +6,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "accent-primary": "#228be6",
+        "accent-tinted": "#3897e9",
+        "accent-shaded": "#1f7dcf",
         "bg-main": "#212529",
         "bg-secondary": "#2A3036",
         "muted-main": "#E6E6E6",

@@ -38,7 +38,10 @@ const visuals = ({}: visualsProps) => {
   const renderFilters = filters.map(({label, value}) => 
     <li key={value}>
       <button 
-        className={`text-xl ${value === filter ? "text-white" : "text-muted-secondary"}`}
+        className={`
+          ${value === filter ? "bg-accent-shaded" : "bg-bg-secondary"}
+          rounded-lg p-2 px-4 text-md text-white hover:bg-opacity-80 duration-200
+        `}
         onClick={() => setFilter(value)}
         >
         {label}
