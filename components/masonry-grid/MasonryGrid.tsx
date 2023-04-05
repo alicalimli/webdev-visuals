@@ -16,11 +16,12 @@ const MasonryGrid = ({ visuals }: MasonryGridProps) => {
 
   const handleClick = (visual: any) => {
     setClickedVisual(visual);
+    router.push(`visuals/?visualId=${visual.id}`, `visuals/${visual.id}`, {scroll: false})
   };
 
   const handleClose = () => {
     setClickedVisual(null);
-    router.push('visuals')
+    router.push('visuals', undefined,  {scroll: false})
   };
 
   return (
@@ -35,19 +36,14 @@ const MasonryGrid = ({ visuals }: MasonryGridProps) => {
         columnClassName="my-masonry-grid_column"
       >
         {visuals.map((visual, index) => (
-          <Link
-            href={`visuals/?visualId=${visual.id}`}
-            as={`visuals/${visual.id}`}
-          >
           <div 
             key={index} 
-            className="my-masonry-grid_item group relative overflow-hidden rounded-md pb-4 cursor-pointer"
+            className="my-masonry-grid_item group relative overflow-hidden rounded-md cursor-pointer"
             onClick={() => handleClick(visual)}
             >
             <img src={visual.imageURL} alt={`Image ${index}`} />
             <div className="absolute inset-0 duration-200 bg-black/30 flex justify-center gap-4 p-4 items-end opacity-0 group-hover:opacity-100" />
           </div>
-          </Link>
         ))}
       </Masonry>
 
