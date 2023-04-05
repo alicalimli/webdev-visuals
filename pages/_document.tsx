@@ -8,7 +8,7 @@ export default function Document() {
         <title>WebDevVisuals</title>
         <meta name="description" content="Visuals for web development" />
       </Head>
-      <body className="bg-[#222] text-white ">
+      <body className="bg-bg-main text-white ">
         <Navbar />
         <Main />
         <NextScript />
