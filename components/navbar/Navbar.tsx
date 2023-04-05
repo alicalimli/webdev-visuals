@@ -18,7 +18,7 @@ const Navbar = ({}: NavbarProps) => {
   const renderLinks = links.map(({label, href}) => <li key={href}><Link href={href}>{label}</Link></li> )
   
   return (
-    <nav className='w-full items-center p-8 flex gap-2 px-24'>
+    <nav className='w-full items-center p-8 flex gap-2 px-vw-32 '>
       <Link href="/" className='text-4xl font-bold'>WebDevVisuals</Link>
       <ul className='ml-auto flex gap-4 text-xl'>
         {renderLinks}

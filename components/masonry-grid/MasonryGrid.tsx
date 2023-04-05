@@ -1,31 +1,84 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
 import Masonry from "react-masonry-css";
+
+import { Dialog, Transition } from '@headlessui/react'
 
 interface MasonryGridProps {
   visuals: any[];
 }
 
 const MasonryGrid = ({ visuals }: MasonryGridProps) => {
+  const [clickedVisual, setClickedVisual] = useState<any | null>(null);
+
+  const handleClick = (visual: any) => {
+    setClickedVisual(visual);
+  };
+
+  const handleClose = () => {
+    setClickedVisual(null);
+  };
+
   return (
-    <Masonry
-      breakpointCols={{
-        default: 3,
-        1100: 2,
-        650: 1,
-      }}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
-    >
-      {visuals.map(({ imageURL }, index) => (
-        <div key={index} className="my-masonry-grid_item group relative overflow-hidden rounded-md">
-          <img src={imageURL} alt={`Image ${index}`} />
-          <div className="absolute inset-0 duration-200 bg-black/20 flex justify-center gap-4 p-4 items-end opacity-0 group-hover:opacity-100">
-            <button className="p-2 px-4 bg-blue-600 rounded-md w-full max-w-sm">learn more</button>
-            <button className="p-2 px-4 bg-blue-600 rounded-md w-full max-w-sm">supported browsers</button>
+   <>
+      <Masonry
+        breakpointCols={{
+          default: 3,
+          1100: 2,
+          650: 1,
+        }}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {visuals.map((visual, index) => (
+          <div 
+            key={index} 
+            className="my-masonry-grid_item group relative overflow-hidden rounded-md cursor-pointer"
+            onClick={() => handleClick(visual)}
+            >
+            <img src={visual.imageURL} alt={`Image ${index}`} />
+            <div className="absolute inset-0 duration-200 bg-black/30 flex justify-center gap-4 p-4 items-end opacity-0 group-hover:opacity-100" />
           </div>
-        </div>
-      ))}
-    </Masonry>
+        ))}
+      </Masonry>
+
+      <Transition appear show={clickedVisual ? true : false} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={handleClose}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-80" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="fixed p-4 z-50 flex justify-center items-center overscroll-contain">
+                  <img
+                    src={clickedVisual?.imageURL}
+                    alt={`Image ${visuals.indexOf(clickedVisual)}`}
+                    className="lg:max-h-[90vh] lg:max-w-[70vw]"
+                  />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+   </>
   );
 };
 

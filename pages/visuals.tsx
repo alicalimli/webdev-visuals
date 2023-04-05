@@ -66,7 +66,7 @@ const visuals = ({}: visualsProps) => {
   }, [filter]);
 
   return (
-  <div className="px-24 flex flex-col gap-4">
+  <div className="px-vw-32 flex flex-col gap-4">
     <div className='flex'>
       <ul className='flex flex-wrap gap-2 items-end'>
         {renderFilters}
