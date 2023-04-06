@@ -1,15 +1,15 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef, useCallback} from "react";
 import Masonry from "react-masonry-css";
 
 import { Dialog, Transition } from '@headlessui/react'
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 interface MasonryGridProps {
   visuals: any[];
+  lastVisualRef: any;
 }
 
-const MasonryGrid = ({ visuals }: MasonryGridProps) => {
+const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
   const router = useRouter()
 
   const [clickedVisual, setClickedVisual] = useState<any | null>(null);
@@ -41,7 +41,10 @@ const MasonryGrid = ({ visuals }: MasonryGridProps) => {
             className="my-masonry-grid_item group relative overflow-hidden rounded-md cursor-pointer"
             onClick={() => handleClick(visual)}
             >
-            <img src={visual.imageURL} alt={`Image ${index}`} />
+            { visuals.length === index + 1 
+              ? <img ref={lastVisualRef} src={visual.imageURL} alt={`Image ${index}`} />
+              : <img src={visual.imageURL} alt={`Image ${index}`} />
+            }
             <div className="absolute inset-0 duration-200 bg-black/30 flex justify-center gap-4 p-4 items-end opacity-0 group-hover:opacity-100" />
           </div>
         ))}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 
 import { MasonryGrid } from "../../components";
 import { useEffect, useState } from "react";
@@ -34,7 +34,32 @@ const visuals = ({}: visualsProps) => {
   const [filter, setFilter] = useState('all')
   const [visuals, setVisuals] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [pageIndex, setPageIndex ] = useState(0)
+  const [visualsCount, setVisualsCount] = useState(0)
 
+  const hasMore = visualsCount > visuals.length 
+  const maxItemsPerPage = 2
+  const observer = useRef<any>(null)
+  
+  const lastVisualRef = useCallback((visual: any) => {
+    if(loading) return;
+
+    if(observer.current) observer.current.disconnect()
+
+    observer.current = new IntersectionObserver(entries => {
+      if(entries[0].isIntersecting && hasMore) {
+        setPageIndex((state: number) => state + 1)
+      }
+    })
+
+    if(visual) observer.current.observe(visual)
+  } ,[ loading ])
+
+  const resetPagination = () => {
+    setVisuals([])
+    setPageIndex(0)
+  }
+  
   const renderFilters = filters.map(({label, value}) => 
     <li key={value}>
       <button 
@@ -42,7 +67,10 @@ const visuals = ({}: visualsProps) => {
           ${value === filter ? "bg-accent-shaded" : "bg-bg-secondary"}
           rounded-lg p-2 px-4 text-md text-white hover:bg-opacity-80 duration-200
         `}
-        onClick={() => setFilter(value)}
+        onClick={() => {
+          resetPagination()
+          setFilter(value)
+        }}
         >
         {label}
       </button>
@@ -53,37 +81,37 @@ const visuals = ({}: visualsProps) => {
     setLoading(true);
     let query = supabase
       .from('visuals')
-      .select()
-    
+      .select('*', { count: 'exact' })
+      .range(pageIndex * maxItemsPerPage, pageIndex * maxItemsPerPage + (maxItemsPerPage - 1))
+
     const newSearchTerm = searchTerm.replace(/\s+/g, " & ");
 
     if (newSearchTerm)  { query = query.textSearch('title', newSearchTerm) }
     if (filter && filter !== "all") { query = query.eq('type', filter) }
   
-    const { data, error } = await query
+    const { data, error, count } = await query
 
     error && console.error(error)
-    data && setVisuals(data as any);
+    data && setVisuals(visuals => [...visuals, ...data]);
+    count && setVisualsCount(count)
 
     setLoading(false);
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    fetchVisuals();
-  };
 
+    const searchVal = e.target[0].value
+    setSearchTerm(searchVal)
+    resetPagination()
+  };
 
   useEffect(() => {
-    fetchVisuals();
-  }, [ filter ]);
+    fetchVisuals()
+  }, [pageIndex, filter, searchTerm])
 
   return (
-  <div className="px-vw-32 flex flex-col gap-4">
+  <div className="px-vw-32 flex flex-col gap-4" >
       <ul className='flex overflow-x-auto gap-2 items-end'>
         {renderFilters}
       </ul>
@@ -92,16 +120,15 @@ const visuals = ({}: visualsProps) => {
             type="text"
             placeholder="Search Visuals"
             className="rounded-md input w-full p-3 px-6 bg-bg-secondary text-white"
-            value={searchTerm}
-            onChange={handleSearch}
           />
       </form>
-    <div className='bg-[] w-full h-0.5'/>
+    <div className='w-full h-0.5'/>
     {loading ? <h1>loading...</h1> : null}
 
     {!loading && !visuals.length ? <h1>No Results.</h1> : null}
     
-    {!loading ? <MasonryGrid visuals={visuals} />: null}
+    <MasonryGrid visuals={visuals} lastVisualRef={lastVisualRef} />
+
   </div>
   )
 }
