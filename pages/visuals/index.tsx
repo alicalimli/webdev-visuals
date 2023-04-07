@@ -2,6 +2,8 @@ import React, { useCallback, useRef } from 'react'
 
 import { MasonryGrid } from "../../components";
 import { useEffect, useState } from "react";
+import { AiOutlineLoading3Quarters, AiOutlineClose } from "react-icons/ai";
+
 import supabase from "../../config/supabaseClient";
 
 const filters = [
@@ -38,7 +40,7 @@ const visuals = ({}: visualsProps) => {
   const [visualsCount, setVisualsCount] = useState(0)
 
   const hasMore = visualsCount > visuals.length 
-  const maxItemsPerPage = 2
+  const maxItemsPerPage = 10
   const observer = useRef<any>(null)
   
   const lastVisualRef = useCallback((visual: any) => {
@@ -53,7 +55,7 @@ const visuals = ({}: visualsProps) => {
     })
 
     if(visual) observer.current.observe(visual)
-  } ,[ loading ])
+  } ,[ loading, hasMore ])
 
   const resetPagination = () => {
     setVisuals([])
@@ -106,6 +108,11 @@ const visuals = ({}: visualsProps) => {
     resetPagination()
   };
 
+  const resetSearch = () => {
+    setSearchTerm("")
+    resetPagination();
+  }
+
   useEffect(() => {
     fetchVisuals()
   }, [pageIndex, filter, searchTerm])
@@ -115,19 +122,35 @@ const visuals = ({}: visualsProps) => {
       <ul className='flex overflow-x-auto gap-2 items-end'>
         {renderFilters}
       </ul>
-      <form onSubmit={handleSubmit} className='w-full'>   
+      <form onSubmit={handleSubmit} className='w-full relative'>   
           <input
             type="text"
             placeholder="Search Visuals"
             className="rounded-md input w-full p-3 px-6 bg-bg-secondary text-white"
           />
+        {searchTerm 
+          ? <button 
+              onClick={resetSearch}
+              type="button" 
+              className='absolute right-3 text-xl top-1/2 -translate-y-1/2 p-1 hover:bg-bg-main rounded-full duration-100'
+              >
+              <AiOutlineClose />
+            </button>  
+          : null}
       </form>
     <div className='w-full h-0.5'/>
-    {loading ? <h1>loading...</h1> : null}
 
-    {!loading && !visuals.length ? <h1>No Results.</h1> : null}
-    
     <MasonryGrid visuals={visuals} lastVisualRef={lastVisualRef} />
+
+    {loading ? <AiOutlineLoading3Quarters className="mx-auto my-6 animate-spin text-4xl text-accent-primary" /> : null}
+
+    {!loading && !visuals.length 
+      ? <div className='flex flex-col items-center gap-8'>
+          <img className='w-full max-w-xs' src="/no_results.svg" />
+          <h2 className='text-2xl'>No Results Found.</h2>
+        </div> 
+      : null}
+    
 
   </div>
   )
