@@ -2,6 +2,7 @@ module.exports = {
   content: [
     "./pages/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
+    "./sections/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -13,15 +14,15 @@ module.exports = {
         "bg-secondary": "#2A3036",
         "muted-main": "#E6E6E6",
         "muted-secondary": "#CCCCCC",
-      }
+      },
     },
     screens: {
-      "xs": "480px",
+      xs: "480px",
     },
   },
   plugins: [
-    require("prettier-plugin-tailwindcss"), 
-    require('tailwindcss-fluid-spacing'),
+    require("prettier-plugin-tailwindcss"),
+    require("tailwindcss-fluid-spacing"),
     require("tailwind-fluid-typography"),
   ],
 };
