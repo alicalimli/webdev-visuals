@@ -74,6 +74,8 @@ const visuals = ({}: visualsProps) => {
           rounded-lg p-2 px-4 text-md text-white hover:bg-opacity-80 duration-200
         `}
         onClick={() => {
+          if(value === filter) return;
+
           resetPagination()
           setFilter(value)
         }}
@@ -109,8 +111,10 @@ const visuals = ({}: visualsProps) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-
     const searchVal = e.target[0].value
+    
+    if(searchVal === searchTerm) return
+
     setSearchTerm(searchVal)
     resetPagination()
   };
