@@ -13,8 +13,8 @@ import { GoBrowser } from 'react-icons/go'
 import {toast} from 'react-toastify'
 
 const btnClass = `
-  rounded-full w-fit p-3 px-6 flex gap-2 items-center
-  bg-[#111] hover:bg-[#222] duration-200
+  rounded-full w-fit p-2 px-4  xs:p-3 xs:px-6 flex gap-2 items-center
+  bg-[#111] hover:bg-[#222] duration-200 fluid-md
 `;
 
 interface MasonryGridProps {
@@ -145,7 +145,7 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
                   <img
                     src={clickedVisual?.imageURL}
                     alt={`Image ${visuals.indexOf(clickedVisual)}`}
-                    className="sm:max-h-[85vh] rounded-2xl"
+                    className="xs:max-h-[85vh] rounded-2xl"
                   />
 
                   <div className="ml-auto flex flex-wrap justify-end gap-2">

@@ -15,6 +15,9 @@ module.exports = {
         "muted-secondary": "#CCCCCC",
       }
     },
+    screens: {
+      "xs": "480px",
+    },
   },
   plugins: [
     require("prettier-plugin-tailwindcss"), 
