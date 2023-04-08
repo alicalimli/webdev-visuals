@@ -2,6 +2,7 @@ import { Navbar } from "@/components";
 import Footer from "@/components/footer/Footer";
 import { Html, Head, Main, NextScript } from "next/document";
 
+
 export default function Document() {
   return (
     <Html lang="en">
@@ -11,9 +12,8 @@ export default function Document() {
       </Head>
       <body className="bg-bg-main text-white ">
         <Navbar />
-        <div className="min-h-screen">
-          <Main />
-        </div>
+        <div id="portal" />
+        <Main />
         <Footer />
         <NextScript />
       </body>

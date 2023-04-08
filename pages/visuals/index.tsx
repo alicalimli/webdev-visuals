@@ -6,6 +6,10 @@ import { AiOutlineLoading3Quarters, AiOutlineClose } from "react-icons/ai";
 
 import supabase from "../../config/supabaseClient";
 
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Pagination } from "swiper";
+
 const filters = [
   {
     label: "All",
@@ -81,6 +85,7 @@ const visuals = ({}: visualsProps) => {
 
   const fetchVisuals = async () => {
     setLoading(true);
+    
     let query = supabase
       .from('visuals')
       .select('*', { count: 'exact' })
@@ -88,13 +93,15 @@ const visuals = ({}: visualsProps) => {
 
     const newSearchTerm = searchTerm.replace(/\s+/g, " & ");
 
-    if (newSearchTerm)  { query = query.textSearch('title', newSearchTerm) }
+    if (newSearchTerm)  { query = query.textSearch('title', newSearchTerm, { type: 'websearch', config: 'english'}) }
     if (filter && filter !== "all") { query = query.eq('type', filter) }
   
     const { data, error, count } = await query
 
+    const shouldConcatinateVisuals = pageIndex > 0 ? true : false
+
     error && console.error(error)
-    data && setVisuals(visuals => [...visuals, ...data]);
+    data && setVisuals(visuals => shouldConcatinateVisuals ? [...visuals, ...data] : [...data]);
     count && setVisualsCount(count)
 
     setLoading(false);
@@ -118,7 +125,7 @@ const visuals = ({}: visualsProps) => {
   }, [pageIndex, filter, searchTerm])
 
   return (
-  <div className="px-vw-32 flex flex-col gap-4" >
+  <div className="px-vw-32 flex flex-col gap-4 min-h-screen" >
       <ul className='flex overflow-x-auto gap-2 items-end'>
         {renderFilters}
       </ul>
