@@ -15,9 +15,10 @@ const btnClass = `
 
 interface VisualButtonsProps {
   visualInfo: any;
+  shareBtnRef: any;
 }
 
-const VisualButtons = ({visualInfo}: VisualButtonsProps) => {
+const VisualButtons = ({visualInfo, shareBtnRef}: VisualButtonsProps) => {
   
   const handleShareBtn = () => {
     const url = window.location.href;
@@ -66,7 +67,7 @@ const VisualButtons = ({visualInfo}: VisualButtonsProps) => {
   };
   return (
       <div className="ml-auto flex flex-wrap justify-end gap-2">
-        <button className={btnClass} onClick={handleShareBtn}>
+        <button className={btnClass} ref={shareBtnRef} onClick={handleShareBtn}>
           <AiOutlineShareAlt className="fluid-xl" />
           Share
         </button>

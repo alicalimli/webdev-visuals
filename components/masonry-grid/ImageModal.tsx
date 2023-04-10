@@ -1,5 +1,6 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
 import { VisualButtons } from "..";
 
@@ -9,9 +10,11 @@ interface ImageModalProps {
 }
 
 const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
+  const initialFocusRef = useRef<HTMLElement>(null)
+  
   return (
     <Transition appear show={visualInfo ? true : false} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={handleClose}>
+      <Dialog initialFocus={initialFocusRef} as="div" className="relative z-10" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -21,10 +24,17 @@ const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-80" />
+          <div className="fixed inset-0 bg-black" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
+          <button
+            onClick={handleClose}
+            className="absolute left-6 top-6 flex items-center gap-2 "
+          >
+            <AiOutlineArrowLeft className="text-3xl" />
+            Back
+          </button>
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
@@ -39,10 +49,10 @@ const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
                 <img
                   src={visualInfo?.imageURL}
                   alt={visualInfo?.image_name}
-                  className="rounded-2xl xs:max-h-[85vh]"
+                  className="rounded-2xl xs:max-h-[80vh]"
                 />
 
-                {visualInfo ? <VisualButtons visualInfo={visualInfo} /> : null}
+                {visualInfo ? <VisualButtons visualInfo={visualInfo} shareBtnRef={initialFocusRef}/> : null}
               </Dialog.Panel>
             </Transition.Child>
           </div>
