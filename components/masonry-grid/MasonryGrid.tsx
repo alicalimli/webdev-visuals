@@ -16,14 +16,14 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
 
   const handleClick = (visual: any) => {
     setClickedVisual(visual);
-    router.push(`visuals/?visualId=${visual.id}`, `visuals/${visual.id}`, {
+    router.push(`?visualId=${visual.id}`, `${visual.id}`, {
       scroll: false,
     });
   };
 
   const handleClose = () => {
     setClickedVisual(null);
-    router.push("visuals", undefined, { scroll: false });
+    router.push("/", undefined, { scroll: false });
   };
 
   return (
@@ -57,7 +57,7 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
         ))}
       </Masonry>
 
-      <ImageModal handleClose={handleClose}  visualInfo={clickedVisual}/>
+      <ImageModal handleClose={handleClose} visualInfo={clickedVisual} />
     </>
   );
 };

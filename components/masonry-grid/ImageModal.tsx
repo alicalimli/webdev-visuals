@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { VisualButtons } from "..";
@@ -8,7 +8,7 @@ interface ImageModalProps {
   handleClose: () => void;
 }
 
-const ImageModal = ({ visualInfo, handleClose}: ImageModalProps) => {
+const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
   return (
     <Transition appear show={visualInfo ? true : false} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleClose}>
@@ -35,22 +35,21 @@ const ImageModal = ({ visualInfo, handleClose}: ImageModalProps) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Panel className="fixed z-20 flex flex-col gap-4 p-4 md:max-w-[70vw] ">
+              <Dialog.Panel className="fixed z-20 flex flex-col gap-4 p-4 md:max-w-5xl ">
                 <img
                   src={visualInfo?.imageURL}
                   alt={visualInfo?.image_name}
-                  className="xs:max-h-[85vh] rounded-2xl"
+                  className="rounded-2xl xs:max-h-[85vh]"
                 />
 
-            
-                {visualInfo ? <VisualButtons visualInfo={visualInfo}/> : null}
+                {visualInfo ? <VisualButtons visualInfo={visualInfo} /> : null}
               </Dialog.Panel>
             </Transition.Child>
           </div>
         </div>
       </Dialog>
     </Transition>
-  )
-}
+  );
+};
 
-export default ImageModal
+export default ImageModal;

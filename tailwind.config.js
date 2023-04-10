@@ -15,9 +15,9 @@ module.exports = {
         "muted-main": "#E6E6E6",
         "muted-secondary": "#CCCCCC",
       },
-    },
-    screens: {
-      xs: "480px",
+      screens: {
+        xs: "480px",
+      },
     },
   },
   plugins: [
