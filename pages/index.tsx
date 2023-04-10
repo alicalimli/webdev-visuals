@@ -60,6 +60,8 @@ const Visuals = ({}: VisualsProps) => {
     [loading, hasMore]
   );
 
+  const formRef = useRef(null)
+
   const resetPagination = () => {
     setVisuals([]);
     setPageIndex(0);
@@ -134,6 +136,7 @@ const Visuals = ({}: VisualsProps) => {
 
   const resetSearch = () => {
     setSearchTerm("");
+    formRef?.current?.reset()
     resetPagination();
   };
 
@@ -144,7 +147,7 @@ const Visuals = ({}: VisualsProps) => {
   return (
     <div className="flex min-h-screen flex-col gap-4 px-vw-32">
       <ul className="flex items-end gap-2 overflow-x-auto">{renderFilters}</ul>
-      <form onSubmit={handleSubmit} className="relative w-full">
+      <form ref={formRef} onSubmit={handleSubmit} className="relative w-full">
         <input
           type="text"
           placeholder="Search Visuals"
