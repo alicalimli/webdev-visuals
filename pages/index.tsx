@@ -60,7 +60,7 @@ const Visuals = ({}: VisualsProps) => {
     [loading, hasMore]
   );
 
-  const formRef = useRef(null)
+  const formRef = useRef(null);
 
   const resetPagination = () => {
     setVisuals([]);
@@ -118,17 +118,17 @@ const Visuals = ({}: VisualsProps) => {
       setVisuals((visuals) =>
         shouldConcatinateVisuals ? [...visuals, ...data] : [...data]
       );
-    count && setVisualsCount(count);
+    typeof count === "number" && setVisualsCount(count);
 
     setLoading(false);
   };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    
+
     const searchVal = e.target[0].value;
-    
-    if(searchVal === searchTerm) return
+
+    if (searchVal === searchTerm) return;
 
     setSearchTerm(searchVal);
     resetPagination();
@@ -136,7 +136,7 @@ const Visuals = ({}: VisualsProps) => {
 
   const resetSearch = () => {
     setSearchTerm("");
-    formRef?.current?.reset()
+    formRef?.current?.reset();
     resetPagination();
   };
 
@@ -171,7 +171,7 @@ const Visuals = ({}: VisualsProps) => {
         <AiOutlineLoading3Quarters className="mx-auto my-6 animate-spin text-4xl text-accent-primary" />
       ) : null}
 
-      {!loading && !visuals.length ? (
+      {!loading && visualsCount <= 0 ? (
         <div className="flex flex-col items-center gap-8">
           <img className="w-full max-w-xs" src="/no_results.svg" />
           <h2 className="text-2xl">No Results Found.</h2>
