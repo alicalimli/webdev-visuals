@@ -13,7 +13,6 @@ const useFetchVisuals = () => {
 
   const hasMore = visualsCount > visuals.length;
   const maxItemsPerPage = 3;
-  console.log(hasMore)
 
   const resetPagination = () => {
     setVisuals([]);
