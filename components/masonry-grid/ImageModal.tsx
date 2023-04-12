@@ -51,11 +51,13 @@ const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
               leaveTo="opacity-0"
             >
               <Dialog.Panel className="fixed z-20 flex flex-col gap-4 p-4 md:max-w-5xl ">
-                <img
-                  src={visualInfo?.imageURL}
-                  alt={visualInfo?.image_name}
-                  className="rounded-2xl xs:max-h-[80vh]"
-                />
+                <div className="flex justify-center">
+                  <img
+                    src={visualInfo?.imageURL}
+                    alt={visualInfo?.image_name}
+                    className="rounded-2xl xs:max-h-[80vh] object-contain"
+                  />
+                </div>
 
                 {visualInfo ? (
                   <VisualButtons
