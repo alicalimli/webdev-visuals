@@ -57,27 +57,27 @@ const useFetchVisuals = () => {
   };
 
   const nextPage = () => {
-    setPageIndex(state => state + 1)
-  }
+    setPageIndex((state) => state + 1);
+  };
 
   const resetSearch = () => {
-    setSearchTerm("")
-    resetPagination()
-  }
+    setSearchTerm("");
+    resetPagination();
+  };
 
   const searchVisual = (searchValue: string) => {
     if (searchValue === searchTerm) return;
 
     setSearchTerm(searchValue);
     resetPagination();
-  }
-  
+  };
+
   const changeFilter = (filterValue: string) => {
     if (filterValue === filter) return;
 
     resetPagination();
     setFilter(filterValue);
-  }
+  };
 
   useEffect(() => {
     fetchVisuals();
@@ -94,7 +94,7 @@ const useFetchVisuals = () => {
     hasMore,
     searchTerm,
     filter,
-  }
+  };
 };
 
 export default useFetchVisuals;

@@ -21,7 +21,6 @@ module.exports = {
     },
   },
   plugins: [
-    require("prettier-plugin-tailwindcss"),
     require("tailwindcss-fluid-spacing"),
     require("tailwind-fluid-typography"),
   ],

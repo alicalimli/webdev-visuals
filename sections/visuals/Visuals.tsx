@@ -4,7 +4,7 @@ import { MasonryGrid } from "@/components";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters, AiOutlineClose } from "react-icons/ai";
 
-import useFetchVisuals from './useFetchVisuals'
+import useFetchVisuals from "./useFetchVisuals";
 import supabase from "@/config/supabaseClient";
 
 const filters = [
@@ -33,7 +33,18 @@ const filters = [
 interface VisualsProps {}
 
 const Visuals = ({}: VisualsProps) => {
-  const {visuals, loading, filter, visualsCount, nextPage, resetSearch, searchVisual, hasMore, changeFilter, searchTerm} = useFetchVisuals()
+  const {
+    visuals,
+    loading,
+    filter,
+    visualsCount,
+    nextPage,
+    resetSearch,
+    searchVisual,
+    hasMore,
+    changeFilter,
+    searchTerm,
+  } = useFetchVisuals();
 
   const observer = useRef<any>(null);
 
@@ -54,10 +65,7 @@ const Visuals = ({}: VisualsProps) => {
     [loading, hasMore]
   );
 
-
   const formRef = useRef(null);
-
-
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -68,10 +76,10 @@ const Visuals = ({}: VisualsProps) => {
 
   const onSearchResetBtn = () => {
     formRef?.current?.reset();
+
     resetSearch();
   };
 
-  
   const renderFilters = filters.map(({ label, value }) => (
     <li key={value}>
       <button
@@ -87,7 +95,6 @@ const Visuals = ({}: VisualsProps) => {
       </button>
     </li>
   ));
-
 
   return (
     <div className="flex min-h-screen flex-col gap-4 px-vw-32">
@@ -108,6 +115,7 @@ const Visuals = ({}: VisualsProps) => {
           </button>
         ) : null}
       </form>
+
       <div className="h-0.5 w-full" />
 
       <MasonryGrid visuals={visuals} lastVisualRef={lastVisualRef} />

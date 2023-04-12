@@ -10,11 +10,16 @@ interface ImageModalProps {
 }
 
 const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
-  const initialFocusRef = useRef<HTMLElement>(null)
-  
+  const initialFocusRef = useRef<HTMLElement>(null);
+
   return (
     <Transition appear show={visualInfo ? true : false} as={Fragment}>
-      <Dialog initialFocus={initialFocusRef} as="div" className="relative z-10" onClose={handleClose}>
+      <Dialog
+        initialFocus={initialFocusRef}
+        as="div"
+        className="relative z-10"
+        onClose={handleClose}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -52,7 +57,12 @@ const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
                   className="rounded-2xl xs:max-h-[80vh]"
                 />
 
-                {visualInfo ? <VisualButtons visualInfo={visualInfo} shareBtnRef={initialFocusRef}/> : null}
+                {visualInfo ? (
+                  <VisualButtons
+                    visualInfo={visualInfo}
+                    shareBtnRef={initialFocusRef}
+                  />
+                ) : null}
               </Dialog.Panel>
             </Transition.Child>
           </div>

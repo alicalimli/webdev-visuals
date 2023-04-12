@@ -9,6 +9,7 @@ export default function Document() {
         <title>WebDevVisuals</title>
         <meta name="description" content="Visuals for web development" />
       </Head>
+
       <body className="bg-bg-main text-white ">
         <Navbar />
         <div id="portal" />
