@@ -65,7 +65,7 @@ const Visuals = ({}: VisualsProps) => {
     [loading, hasMore]
   );
 
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
