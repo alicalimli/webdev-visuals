@@ -49,6 +49,7 @@ const useFetchVisuals = () => {
     hasNextPage: hasMore,
     isFetchingNextPage: loading,
     fetchNextPage,
+    status,
   } = useInfiniteQuery({
     queryKey: ["visuals", filter, searchTerm],
     queryFn: ({ pageParam = 0 }) => {
@@ -66,7 +67,6 @@ const useFetchVisuals = () => {
       const nextPage = allPages.length + 1;
       return nextPage <= maxPages ? nextPage : undefined;
     },
-    keepPreviousData: true,
   });
 
   const nextPage = () => {
@@ -89,14 +89,16 @@ const useFetchVisuals = () => {
     setFilter(filterValue);
   };
 
-  const visuals = data?.pages.flatMap((item) => item?.visuals);
+  const visuals = data?.pages.flatMap((item) => item?.visuals) || [];
+  const visualsCount = data?.pages[0]?.visualsCount || 0;
 
   return {
     changeFilter,
     searchVisual,
     resetSearch,
+    visualsCount,
     nextPage,
-    loading,
+    status,
     visuals,
     hasMore,
     searchTerm,

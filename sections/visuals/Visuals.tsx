@@ -32,7 +32,8 @@ interface VisualsProps {}
 const Visuals = ({}: VisualsProps) => {
   const {
     visuals,
-    loading,
+    visualsCount,
+    status,
     filter,
     nextPage,
     resetSearch,
@@ -42,6 +43,7 @@ const Visuals = ({}: VisualsProps) => {
     searchTerm,
   } = useFetchVisuals();
 
+  const loading = status === "loading";
   const observer = useRef<any>(null);
 
   const lastVisualRef = useCallback(
@@ -122,7 +124,7 @@ const Visuals = ({}: VisualsProps) => {
         <AiOutlineLoading3Quarters className="mx-auto my-6 animate-spin text-4xl text-accent-primary" />
       ) : null}
 
-      {!loading && !visuals?.length ? (
+      {!loading && visualsCount <= 0 ? (
         <div className="flex flex-col items-center gap-8">
           <img className="w-full max-w-xs" src="/no_results.svg" />
           <h2 className="text-2xl">No Results Found.</h2>
