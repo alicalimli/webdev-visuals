@@ -1,11 +1,8 @@
 import React, { useCallback, useRef } from "react";
-
 import { MasonryGrid } from "@/components";
-import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters, AiOutlineClose } from "react-icons/ai";
 
 import useFetchVisuals from "./useFetchVisuals";
-import supabase from "@/config/supabaseClient";
 
 const filters = [
   {
@@ -37,7 +34,6 @@ const Visuals = ({}: VisualsProps) => {
     visuals,
     loading,
     filter,
-    visualsCount,
     nextPage,
     resetSearch,
     searchVisual,
@@ -118,13 +114,15 @@ const Visuals = ({}: VisualsProps) => {
 
       <div className="h-0.5 w-full" />
 
-      <MasonryGrid visuals={visuals} lastVisualRef={lastVisualRef} />
+      {visuals?.length ? (
+        <MasonryGrid visuals={visuals} lastVisualRef={lastVisualRef} />
+      ) : null}
 
       {loading ? (
         <AiOutlineLoading3Quarters className="mx-auto my-6 animate-spin text-4xl text-accent-primary" />
       ) : null}
 
-      {!loading && visualsCount <= 0 ? (
+      {!loading && !visuals?.length ? (
         <div className="flex flex-col items-center gap-8">
           <img className="w-full max-w-xs" src="/no_results.svg" />
           <h2 className="text-2xl">No Results Found.</h2>
