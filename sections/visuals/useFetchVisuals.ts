@@ -42,7 +42,7 @@ const useFetchVisuals = () => {
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const maxItemsPerPage = 10;
+  const maxItemsPerPage = 4;
 
   const {
     data,

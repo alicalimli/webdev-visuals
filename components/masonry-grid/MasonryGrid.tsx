@@ -47,10 +47,15 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
               <img
                 ref={lastVisualRef}
                 src={visual.imageURL}
+                loading="lazy"
                 alt={`Image ${index}`}
               />
             ) : (
-              <img src={visual.imageURL} alt={`Image ${index}`} />
+              <img
+                src={visual.imageURL}
+                loading="lazy"
+                alt={`Image ${index}`}
+              />
             )}
             <div className="absolute inset-0 flex items-end justify-center gap-4 bg-black/30 p-4 opacity-0 duration-200 group-hover:opacity-100" />
           </div>
