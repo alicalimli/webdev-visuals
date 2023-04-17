@@ -85,7 +85,7 @@ const ImageModal = ({
 
                 {visualInfo ? (
                   <Portal>
-                    <div className="block xs:hidden absolute bottom-2 left-0 w-full p-4 z-50">
+                    <div className="block xs:hidden fixed bottom-0 left-0 w-full p-4 z-50">
                       <VisualButtons
                         handleClose={handleClose}
                         visualInfo={visualInfo}
