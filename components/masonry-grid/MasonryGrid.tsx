@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Masonry from "react-masonry-css";
 
 import { useRouter } from "next/router";
-import ImageModal from "./ImageModal";
+import { ImageModal } from "..";
 
 interface MasonryGridProps {
   visuals: any[];

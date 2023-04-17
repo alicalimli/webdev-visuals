@@ -1,5 +1,5 @@
 import MasonryGrid from "./masonry-grid/MasonryGrid";
 import Navbar from "./navbar/Navbar";
-import VisualButtons from "./visual-buttons/VisualButtons";
+import ImageModal from "./image-modal/ImageModal";
 
-export { MasonryGrid, Navbar, VisualButtons };
+export { MasonryGrid, Navbar, ImageModal };

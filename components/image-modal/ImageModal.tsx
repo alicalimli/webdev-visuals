@@ -1,15 +1,22 @@
 import React, { Fragment, useRef } from "react";
 
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
-import { VisualButtons } from "..";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+
+import VisualButtons from "./VisualButtons";
+import { Portal } from "../portal/Portal";
 
 interface ImageModalProps {
   visualInfo: any;
+  transparentBG?: boolean;
   handleClose: () => void;
 }
 
-const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
+const ImageModal = ({
+  visualInfo,
+  handleClose,
+  transparentBG = true,
+}: ImageModalProps) => {
   const initialFocusRef = useRef<HTMLElement>(null);
 
   return (
@@ -29,17 +36,24 @@ const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black" />
+          <div
+            className={`fixed inset-0 bg-black ${
+              transparentBG ? "bg-opacity-95" : ""
+            }`}
+          />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
           <button
             onClick={handleClose}
-            className="absolute left-6 top-6 flex items-center gap-2 "
+            className={`
+              rounded-full w-fit flex flex-col p-3 gap-2 absolute top-3 left-3 items-center
+              hover:bg-[#222] duration-200 fluid-md 
+            `}
           >
-            <AiOutlineArrowLeft className="text-3xl" />
-            Back
+            <AiOutlineArrowLeft className="fluid-xl" />
           </button>
+
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
@@ -60,10 +74,25 @@ const ImageModal = ({ visualInfo, handleClose }: ImageModalProps) => {
                 </div>
 
                 {visualInfo ? (
-                  <VisualButtons
-                    visualInfo={visualInfo}
-                    shareBtnRef={initialFocusRef}
-                  />
+                  <div className="hidden xs:block">
+                    <VisualButtons
+                      handleClose={handleClose}
+                      visualInfo={visualInfo}
+                      shareBtnRef={initialFocusRef}
+                    />
+                  </div>
+                ) : null}
+
+                {visualInfo ? (
+                  <Portal>
+                    <div className="block xs:hidden absolute bottom-2 left-0 w-full p-4 z-50">
+                      <VisualButtons
+                        handleClose={handleClose}
+                        visualInfo={visualInfo}
+                        shareBtnRef={initialFocusRef}
+                      />
+                    </div>
+                  </Portal>
                 ) : null}
               </Dialog.Panel>
             </Transition.Child>

@@ -1,8 +1,7 @@
 import supabase from "@/config/supabaseClient";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { VisualButtons } from "@/components";
-import ImageModal from "@/components/masonry-grid/ImageModal";
+import ImageModal from "@/components/image-modal/ImageModal";
 
 interface VisualProps {}
 
@@ -29,8 +28,8 @@ const Visual = ({}: VisualProps) => {
   };
 
   const handleClose = () => {
-    router.push('/')
-  }
+    router.push("/");
+  };
 
   useEffect(() => {
     visualId && fetchVisuals(+visualId);
@@ -38,7 +37,13 @@ const Visual = ({}: VisualProps) => {
 
   return (
     <div className="mx-auto flex w-fit flex-col gap-4">
-      {visual ? <ImageModal visualInfo={visual} handleClose={handleClose} /> : null}
+      {visual ? (
+        <ImageModal
+          transparentBG={false}
+          visualInfo={visual}
+          handleClose={handleClose}
+        />
+      ) : null}
     </div>
   );
 };
