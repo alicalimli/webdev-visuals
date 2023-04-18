@@ -82,8 +82,12 @@ const Visuals = ({}: VisualsProps) => {
     <li key={value}>
       <button
         className={`
-          ${value === filter ? "bg-accent-shaded" : "bg-bg-secondary"}
-          text-md rounded-lg p-2 px-4 text-white duration-200 hover:bg-opacity-80
+          ${
+            value === filter
+              ? "bg-accent-shaded border-transparent"
+              : "bg-transparent border-slate-600/70"
+          }
+          text-md rounded-full p-1.5 px-6 text-white duration-200 hover:bg-opacity-80 border 
         `}
         onClick={() => {
           changeFilter(value);
@@ -96,25 +100,28 @@ const Visuals = ({}: VisualsProps) => {
 
   return (
     <div className="flex min-h-screen flex-col gap-4 px-vw-32">
-      <ul className="flex items-end gap-2 overflow-x-auto">{renderFilters}</ul>
-      <form ref={formRef} onSubmit={handleSubmit} className="relative w-full">
-        <input
-          type="text"
-          placeholder="Search Visuals"
-          className="input w-full rounded-md bg-bg-secondary p-3 px-6 text-white"
-        />
-        {searchTerm ? (
-          <button
-            onClick={onSearchResetBtn}
-            type="button"
-            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-xl duration-100 hover:bg-bg-main"
-          >
-            <AiOutlineClose />
-          </button>
-        ) : null}
-      </form>
-
-      <div className="h-0.5 w-full" />
+      <header className="flex flex-col gap-4">
+        {" "}
+        <form ref={formRef} onSubmit={handleSubmit} className="relative w-full">
+          <input
+            type="text"
+            placeholder="Search Visuals"
+            className="input w-full rounded-full bg-bg-secondary p-3 px-6 text-white"
+          />
+          {searchTerm ? (
+            <button
+              onClick={onSearchResetBtn}
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-xl duration-100 hover:bg-bg-main"
+            >
+              <AiOutlineClose />
+            </button>
+          ) : null}
+        </form>
+        <ul className="flex items-end gap-2 overflow-x-auto">
+          {renderFilters}
+        </ul>
+      </header>
 
       {visuals?.length ? (
         <MasonryGrid visuals={visuals} lastVisualRef={lastVisualRef} />
