@@ -71,7 +71,8 @@ const ImageModal = ({
                       <video
                         className="bg-bg-main xs:max-h-[80vh] "
                         loop
-                        preload
+                        preload=""
+                        muted
                         playsInline
                         autoPlay
                       >

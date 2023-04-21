@@ -55,6 +55,8 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
                   className="bg-bg-main"
                   ref={visuals.length === index + 1 ? lastVisualRef : undefined}
                   loop
+                  preload=""
+                  muted
                   playsInline
                   autoPlay
                 >

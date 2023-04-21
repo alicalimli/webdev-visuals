@@ -39,7 +39,7 @@ const fetchVisuals = async ({
 };
 
 const useFetchVisuals = () => {
-  const [filter, setFilter] = useState("vscode");
+  const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
   const maxItemsPerPage = 4;
