@@ -46,16 +46,19 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
         {visuals.map((visual, index) => (
           <div
             key={index}
-            className="my-masonry-grid_item group relative cursor-pointer overflow-hidden rounded-md"
+            className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-md"
             onClick={() => handleClick(visual)}
           >
             {visual.srcType === "video" || visual.srcType === "webm" ? (
               <div className="">
                 <video
-                  className="bg-bg-main"
+                  className="bg-bg-main duration-500 opacity-0"
                   ref={visuals.length === index + 1 ? lastVisualRef : undefined}
                   loop
                   preload=""
+                  onLoadedData={(e: any) => {
+                    e.target.classList.remove("opacity-0");
+                  }}
                   muted
                   playsInline
                   autoPlay
@@ -69,7 +72,11 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
               <img
                 ref={visuals.length === index + 1 ? lastVisualRef : undefined}
                 src={visual.imageURL}
+                className=" duration-500 opacity-0"
                 loading="lazy"
+                onLoad={(e: any) => {
+                  e.target.classList.remove("opacity-0");
+                }}
                 alt={`Image ${index}`}
               />
             ) : null}
