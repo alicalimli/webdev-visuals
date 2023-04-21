@@ -18,7 +18,6 @@ const ImageModal = ({
   transparentBG = true,
 }: ImageModalProps) => {
   const initialFocusRef = useRef<HTMLElement>(null);
-
   return (
     <Transition appear show={visualInfo ? true : false} as={Fragment}>
       <Dialog
@@ -66,11 +65,30 @@ const ImageModal = ({
             >
               <Dialog.Panel className="fixed z-20 flex flex-col gap-4 p-4 md:max-w-5xl ">
                 <div className="flex justify-center">
-                  <img
-                    src={visualInfo?.imageURL}
-                    alt={visualInfo?.image_name}
-                    className="rounded-2xl xs:max-h-[80vh] object-contain"
-                  />
+                  {visualInfo?.srcType === "video" ||
+                  visualInfo?.srcType === "webm" ? (
+                    <div className="">
+                      <video
+                        className="bg-bg-main xs:max-h-[80vh] "
+                        loop
+                        playsInline
+                        autoPlay
+                      >
+                        <source
+                          src={`${visualInfo?.imageURL}`}
+                          type="video/mp4"
+                        />
+                      </video>
+                    </div>
+                  ) : null}
+
+                  {visualInfo?.srcType === "image" ? (
+                    <img
+                      src={visualInfo?.imageURL}
+                      alt={visualInfo?.image_name}
+                      className="rounded-2xl xs:max-h-[80vh] object-contain"
+                    />
+                  ) : null}
                 </div>
 
                 {visualInfo ? (

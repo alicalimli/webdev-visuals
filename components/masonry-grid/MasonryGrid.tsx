@@ -26,6 +26,12 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
     router.push("/", undefined, { scroll: false });
   };
 
+  const [isImage, setIsImage] = useState(true);
+
+  const handleError = () => {
+    setIsImage(false);
+  };
+
   return (
     <>
       <Masonry
@@ -43,20 +49,29 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
             className="my-masonry-grid_item group relative cursor-pointer overflow-hidden rounded-md"
             onClick={() => handleClick(visual)}
           >
-            {visuals.length === index + 1 ? (
+            {visual.srcType === "video" || visual.srcType === "webm" ? (
+              <div className="">
+                <video
+                  className="bg-bg-main"
+                  ref={visuals.length === index + 1 ? lastVisualRef : undefined}
+                  loop
+                  playsInline
+                  autoPlay
+                >
+                  <source src={`${visual.imageURL}`} type="video/webm" />
+                </video>
+              </div>
+            ) : null}
+
+            {visual.srcType === "image" ? (
               <img
-                ref={lastVisualRef}
+                ref={visuals.length === index + 1 ? lastVisualRef : undefined}
                 src={visual.imageURL}
                 loading="lazy"
                 alt={`Image ${index}`}
               />
-            ) : (
-              <img
-                src={visual.imageURL}
-                loading="lazy"
-                alt={`Image ${index}`}
-              />
-            )}
+            ) : null}
+
             <div className="absolute inset-0 flex items-end justify-center gap-4 bg-black/30 p-4 opacity-0 duration-200 group-hover:opacity-100" />
           </div>
         ))}
