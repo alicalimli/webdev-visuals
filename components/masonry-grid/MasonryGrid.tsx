@@ -45,7 +45,7 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
       >
         {visuals.map((visual, index) => (
           <div
-            key={index}
+            key={visual.title}
             className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-md"
             onClick={() => handleClick(visual)}
           >
