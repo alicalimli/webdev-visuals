@@ -46,7 +46,7 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
         {visuals.map((visual, index) => (
           <div
             key={visual.title}
-            className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-md"
+            className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-2xl"
             onClick={() => handleClick(visual)}
           >
             {visual.srcType === "video" || visual.srcType === "webm" ? (

@@ -26,21 +26,14 @@ const Navbar = ({}: NavbarProps) => {
   ));
 
   return (
-    <nav className="flex w-full items-center gap-2 p-8 px-vw-32 ">
-      <Link
-        href="/"
-        className="website-title hidden font-semibold fluid-2xl sm:block text-slate-300"
-      >
-        webdev
-        <span className="font-bold text-[#4dabf7]">visuals</span>
-      </Link>
-      <Link
-        href="/"
-        className=" text-slate-300 website-title font-semibold fluid-3xl sm:hidden"
-      >
+    <nav className="flex w-full items-center justify-center gap-2 px-vw-12 py- bg-black">
+      <h1 className="website-title font-bold fluid-3xl text-center text-slate-300">
+        Web Development Visuals
+      </h1>
+      {/* <h1 className=" text-slate-300 website-title font-bold fluid-6xl sm:hidden">
         wd
         <span className="font-bold text-[#4dabf7]">visuals</span>
-      </Link>
+      </h1> */}
       {/* <ul className="ml-auto flex gap-4 fluid-lg">{renderLinks}</ul> */}
     </nav>
   );

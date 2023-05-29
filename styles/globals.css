@@ -9,11 +9,6 @@
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
-.website-title,
-.website-title * {
-  font-family: "Dosis", sans-serif;
-}
-
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */

@@ -11,7 +11,6 @@ export default function Document() {
       </Head>
 
       <body className="bg-bg-main text-white ">
-        <Navbar />
         <div id="portal" />
         <Main />
         <Footer />

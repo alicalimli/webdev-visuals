@@ -1,6 +1,8 @@
 import supabase from "@/config/supabaseClient";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+
+import debounce from "lodash.debounce";
 
 const fetchVisuals = async ({
   pageIndex,
@@ -78,20 +80,30 @@ const useFetchVisuals = () => {
     setSearchTerm("");
   };
 
-  const searchVisual = (searchValue: string) => {
-    if (searchValue === searchTerm) return;
-
-    setSearchTerm(searchValue);
-  };
-
   const changeFilter = (filterValue: string) => {
     if (filterValue === filter) return;
 
     setFilter(filterValue);
   };
 
+  const searchVisual = (searchValue: string) => {
+    if (searchValue === searchTerm) return;
+
+    setSearchTerm(searchValue);
+  };
+
   const visuals = data?.pages.flatMap((item) => item?.visuals) || [];
   const visualsCount = data?.pages[0]?.visualsCount || 0;
+
+  const debouncedResults = useMemo(() => {
+    return debounce(searchVisual, 250);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
 
   return {
     changeFilter,
