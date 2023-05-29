@@ -14,7 +14,8 @@ const fetchVisuals = async ({
     .range(
       pageIndex * maxItemsPerPage,
       pageIndex * maxItemsPerPage + (maxItemsPerPage - 1)
-    );
+    )
+    .order("created_at", { ascending: false });
 
   const newSearchTerm = searchTerm.replace(/\s+/g, " & ");
 
