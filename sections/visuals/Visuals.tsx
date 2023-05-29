@@ -116,7 +116,7 @@ const Visuals = ({}: VisualsProps) => {
               value={searchTerm}
               onChange={handleInputChange}
               placeholder="Search Visuals"
-              className="input w-full bg-transparent p-3 xs:p-5 pl-11 text-white fluid-md rounded-xl "
+              className="input w-full bg-transparent p-3 xs:p-5 xs:pl-11 text-white fluid-md rounded-xl "
             />
             {searchTerm ? (
               <button

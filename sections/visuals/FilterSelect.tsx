@@ -14,7 +14,9 @@ const people = [
   { name: "VS Code", value: "vscode" },
 ];
 
-interface FilterSelectProps {}
+interface FilterSelectProps {
+  changeFilter: (filter: string) => void;
+}
 
 const FilterSelect = ({ changeFilter }: FilterSelectProps) => {
   const [selected, setSelected] = useState(people[0]);
