@@ -41,7 +41,7 @@ const MasonryCard = ({
       onMouseLeave={() => handleMouseLeave()}
     >
       {visual.srcType === "video" || visual.srcType === "webm" ? (
-        <div className="">
+        <div className="relative">
           <video
             className="bg-bg-main duration-500 opacity-0"
             ref={isLastVisual ? lastVisualRef : videoRef}
@@ -55,6 +55,10 @@ const MasonryCard = ({
           >
             <source src={`${visual.imageURL}`} type="video/webm" />
           </video>
+
+          <h2 className="absolute bg-bg-secondary text-white text-sm p-1.5 px-3 bottom-2 right-2 rounded-xl">
+            video
+          </h2>
         </div>
       ) : null}
 
