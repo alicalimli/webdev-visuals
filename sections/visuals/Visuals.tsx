@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { MasonryGrid } from "@/components";
 import {
   AiOutlineLoading3Quarters,
@@ -6,32 +6,8 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai";
 
-import debounce from "lodash.debounce";
 import useFetchVisuals from "./useFetchVisuals";
 import FilterSelect from "./FilterSelect";
-
-const filters = [
-  {
-    label: "All",
-    value: "all",
-  },
-  {
-    label: "JavaScript",
-    value: "javascript",
-  },
-  {
-    label: "CSS",
-    value: "css",
-  },
-  {
-    label: "VSCode",
-    value: "vscode",
-  },
-  {
-    label: "HTML",
-    value: "html",
-  },
-];
 
 interface VisualsProps {}
 
@@ -81,26 +57,6 @@ const Visuals = ({}: VisualsProps) => {
     searchVisual(e.target.value);
   };
 
-  const renderFilters = filters.map(({ label, value }) => (
-    <li key={value}>
-      <button
-        className={`
-          ${
-            value === filter
-              ? "bg-accent-shaded border-transparent"
-              : "bg-transparent border-slate-600/70"
-          }
-          text-md rounded-full p-1.5 px-6 text-white duration-200 hover:bg-opacity-80 border 
-        `}
-        onClick={() => {
-          changeFilter(value);
-        }}
-      >
-        {label}
-      </button>
-    </li>
-  ));
-
   return (
     <div className="flex min-h-screen flex-col gap-8 px-vw-12 max-w-[1600px] mx-auto pt-12 xs:pt-24">
       <header className="flex flex-col gap-6 items-center justify-center">
@@ -133,9 +89,6 @@ const Visuals = ({}: VisualsProps) => {
 
           <FilterSelect changeFilter={changeFilter} />
         </div>
-        {/* <ul className="flex items-end gap-2 overflow-x-auto">
-          {renderFilters}
-        </ul> */}
       </header>
 
       {visuals?.length ? (

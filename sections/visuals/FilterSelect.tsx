@@ -44,7 +44,7 @@ const FilterSelect = ({ changeFilter }: FilterSelectProps) => {
           </span>
         </Listbox.Button>
 
-        <Listbox.Options className="absolute mt-4 max-h-70 w-full min-w-[10rem] overflow-auto rounded-xl bg-bg-secondary py-1 text-base shadow-lg focus:outline-none fluid-md z-20 ">
+        <Listbox.Options className="absolute mt-4 max-h-70 w-full min-w-[10rem] overflow-auto rounded-xl bg-bg-secondary text-base shadow-lg focus:outline-none fluid-md z-20 ">
           {people.map((person, personIdx) => (
             <Listbox.Option
               key={personIdx}
