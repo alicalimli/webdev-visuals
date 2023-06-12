@@ -29,7 +29,8 @@ interface VisualButtonsProps {
 }
 
 const VisualButtons = ({ visualInfo, shareBtnRef }: VisualButtonsProps) => {
-  const { handleShareBtn, handleDownloadBtn, handleCopyCode } = useBtnActions();
+  const { isDownloading, handleShareBtn, handleDownloadBtn, handleCopyCode } =
+    useBtnActions();
 
   return (
     <div className="ml-auto flex w-full justify-around xs:justify-end">
@@ -41,6 +42,7 @@ const VisualButtons = ({ visualInfo, shareBtnRef }: VisualButtonsProps) => {
 
       <button
         className={btnClass}
+        disabled={isDownloading}
         onClick={() => handleDownloadBtn(visualInfo)}
       >
         <AiOutlineDownload className="fluid-xl" />
