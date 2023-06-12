@@ -16,8 +16,6 @@ const MasonryGrid = ({ visuals, lastVisualRef }: MasonryGridProps) => {
   const [clickedVisual, setClickedVisual] = useState<any | null>(null);
   const [isHovering, setIsHovering] = useState(false);
 
-  const hoveredVideoRef = useRef();
-
   const handleClick = (visual: any) => {
     setClickedVisual(visual);
     router.push(`?visualId=${visual.id}`, `${visual.id}`, {

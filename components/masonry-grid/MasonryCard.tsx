@@ -35,7 +35,7 @@ const MasonryCard = ({
   return (
     <div
       key={visual.title}
-      className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-2xl border-[3px] border-bg-secondary "
+      className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-2xl border-[3px] border-bg-secondary hover:border-[#3f3f3f]  duration-200"
       onClick={() => handleClick(visual)}
       onMouseEnter={() => handleMouseEnter()}
       onMouseLeave={() => handleMouseLeave()}
