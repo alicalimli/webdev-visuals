@@ -1,7 +1,10 @@
 import supabase from "@/config/supabaseClient";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const useBtnActions = () => {
+  const [isDownloading, setIsDownloading] = useState(false);
+
   const handleShareBtn = () => {
     const url = window.location.href;
 
@@ -9,7 +12,7 @@ const useBtnActions = () => {
       .writeText(url)
       .then(() => {
         toast.dismiss();
-        toast("Link copied to clipboard.");
+        toast.success("Link copied to clipboard.");
       })
       .catch((error) => {
         console.error("Failed to copy URL: ", error);
@@ -17,23 +20,38 @@ const useBtnActions = () => {
   };
 
   const handleDownloadBtn = async (visualInfo: any) => {
-    const fileName = visualInfo.image_name;
+    const startDownload = async () => {
+      if (isDownloading) return;
 
-    const { data, error } = await supabase.storage
-      .from("visuals")
-      .download(fileName);
+      setIsDownloading(true);
 
-    if (error) {
-      console.error("Error downloading image:", error);
-      return;
-    }
+      const fileName = visualInfo.image_name;
 
-    const blob = new Blob([data], { type: data.type });
-    const downloadLink = document.createElement("a");
+      const { data, error } = await supabase.storage
+        .from("visuals")
+        .download(fileName);
 
-    downloadLink.href = window.URL.createObjectURL(blob);
-    downloadLink.download = fileName;
-    downloadLink.click();
+      if (error) {
+        console.error("Error isDownloading image:", error);
+        setIsDownloading(false);
+        return new Error("Something went wrong.");
+      }
+
+      const blob = new Blob([data], { type: data.type });
+      const downloadLink = document.createElement("a");
+
+      downloadLink.href = window.URL.createObjectURL(blob);
+      downloadLink.download = fileName;
+      downloadLink.click();
+
+      setIsDownloading(false);
+    };
+
+    toast.promise(startDownload(), {
+      loading: "Loading",
+      success: "Downloaded Successfully",
+      error: "Error when fetching",
+    });
   };
 
   const handleCopyCode = (visualInfo: any) => {
@@ -41,14 +59,14 @@ const useBtnActions = () => {
       .writeText(visualInfo.code_snippet)
       .then(() => {
         toast.dismiss();
-        toast("Code snippet copied to clipboard.");
+        toast.success("Code snippet copied to clipboard.");
       })
       .catch((error) => {
         console.error("Failed to copy URL: ", error);
       });
   };
 
-  return { handleCopyCode, handleDownloadBtn, handleShareBtn };
+  return { isDownloading, handleCopyCode, handleDownloadBtn, handleShareBtn };
 };
 
 export default useBtnActions;
