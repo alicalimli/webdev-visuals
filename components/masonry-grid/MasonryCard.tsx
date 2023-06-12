@@ -43,7 +43,7 @@ const MasonryCard = ({
       {visual.srcType === "video" || visual.srcType === "webm" ? (
         <div className="relative">
           <video
-            className="bg-bg-main duration-500 opacity-0"
+            className="bg-bg-main duration-500 opacity-0 rounded-2xl"
             ref={isLastVisual ? lastVisualRef : videoRef}
             preload=""
             loop
@@ -75,7 +75,7 @@ const MasonryCard = ({
         />
       ) : null}
 
-      {/* <div className="absolute inset-0 flex items-end justify-center gap-4 bg-black/30 p-4 opacity-0 duration-200 group-hover:opacity-100" /> */}
+      <div className="absolute inset-0 flex items-end justify-center gap-4 bg-black/20 p-4 opacity-0 duration-200 group-hover:opacity-100" />
     </div>
   );
 };
