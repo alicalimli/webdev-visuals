@@ -35,7 +35,7 @@ const MasonryCard = ({
   return (
     <div
       key={visual.title}
-      className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-2xl border-2 border-bg-secondary"
+      className="my-masonry-grid_item !bg-bg-secondary group relative cursor-pointer overflow-hidden rounded-2xl border-[3px] border-bg-secondary "
       onClick={() => handleClick(visual)}
       onMouseEnter={() => handleMouseEnter()}
       onMouseLeave={() => handleMouseLeave()}
@@ -75,7 +75,7 @@ const MasonryCard = ({
         />
       ) : null}
 
-      <div className="absolute inset-0 flex items-end justify-center gap-4 bg-black/30 p-4 opacity-0 duration-200 group-hover:opacity-100" />
+      {/* <div className="absolute inset-0 flex items-end justify-center gap-4 bg-black/30 p-4 opacity-0 duration-200 group-hover:opacity-100" /> */}
     </div>
   );
 };
