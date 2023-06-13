@@ -1,31 +1,13 @@
 import React, { useCallback, useRef } from "react";
 import { MasonryGrid } from "@/components";
-import { AiOutlineLoading3Quarters, AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineLoading3Quarters,
+  AiOutlineClose,
+  AiOutlineSearch,
+} from "react-icons/ai";
 
 import useFetchVisuals from "./useFetchVisuals";
-
-const filters = [
-  {
-    label: "All",
-    value: "all",
-  },
-  {
-    label: "JavaScript",
-    value: "javascript",
-  },
-  {
-    label: "CSS",
-    value: "css",
-  },
-  {
-    label: "VSCode",
-    value: "vscode",
-  },
-  {
-    label: "HTML",
-    value: "html",
-  },
-];
+import FilterSelect from "./FilterSelect";
 
 interface VisualsProps {}
 
@@ -65,62 +47,48 @@ const Visuals = ({}: VisualsProps) => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-
-    const searchVal = e.target[0].value;
-    searchVisual(searchVal);
-  };
-
   const onSearchResetBtn = () => {
     formRef?.current?.reset();
 
     resetSearch();
   };
 
-  const renderFilters = filters.map(({ label, value }) => (
-    <li key={value}>
-      <button
-        className={`
-          ${
-            value === filter
-              ? "bg-accent-shaded border-transparent"
-              : "bg-transparent border-slate-600/70"
-          }
-          text-md rounded-full p-1.5 px-6 text-white duration-200 hover:bg-opacity-80 border 
-        `}
-        onClick={() => {
-          changeFilter(value);
-        }}
-      >
-        {label}
-      </button>
-    </li>
-  ));
+  const handleInputChange = (e: any) => {
+    searchVisual(e.target.value);
+  };
 
   return (
-    <div className="flex min-h-screen flex-col gap-4 px-vw-32">
-      <header className="flex flex-col gap-4">
+    <div className="flex min-h-screen flex-col gap-8 px-vw-12 max-w-[1600px] mx-auto pt-12 xs:pt-24">
+      <header className="flex flex-col gap-6 items-center justify-center">
         {" "}
-        <form ref={formRef} onSubmit={handleSubmit} className="relative w-full">
-          <input
-            type="text"
-            placeholder="Search Visuals"
-            className="input w-full rounded-full bg-bg-secondary p-3 px-6 text-white"
-          />
-          {searchTerm ? (
-            <button
-              onClick={onSearchResetBtn}
-              type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-xl duration-100 hover:bg-bg-main"
-            >
-              <AiOutlineClose />
-            </button>
-          ) : null}
-        </form>
-        <ul className="flex items-end gap-2 overflow-x-auto">
-          {renderFilters}
-        </ul>
+        <h1 className="website-title font-bold fluid-3xl text-center text-slate-300">
+          Web Development Visuals
+        </h1>
+        <div className="relative flex flex-col xs:flex-row xs:items-center w-full max-w-3xl bg-bg-secondary rounded-xl ">
+          <div className="relative flex-1">
+            <AiOutlineSearch className="absolute left-4 inset-0 my-auto text-xl" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleInputChange}
+              placeholder="Search Visuals"
+              className="input w-full bg-transparent p-3 pl-11 xs:p-5 xs:pl-11 text-white fluid-md rounded-xl "
+            />
+            {searchTerm ? (
+              <button
+                onClick={onSearchResetBtn}
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-bg-main rounded-full p-1.5 text-xl duration-100"
+              >
+                <AiOutlineClose className="text-sm" />
+              </button>
+            ) : null}
+          </div>
+
+          <div className="xs:ml-auto w-full h-0.5 xs:w-0.5 xs:h-8 bg-[#343a40]" />
+
+          <FilterSelect changeFilter={changeFilter} />
+        </div>
       </header>
 
       {visuals?.length ? (
