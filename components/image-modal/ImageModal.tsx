@@ -84,7 +84,7 @@ const ImageModal = ({
             >
               <Dialog.Panel
                 className={`
-                  fixed z-20 flex flex-col gap-4 md:max-w-5xl
+                  fixed z-20 flex flex-col gap-4 md:max-w-5xl p-3
                 `}
               >
                 <div
